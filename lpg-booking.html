@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LPG Booking App &amp; Fleet Platform | Shujaat Arbab</title>
+  <meta name="description" content="Case study on building the LPG Booking App cross-platform mobile app using Flutter, Dart, .NET, Entity Framework, REST APIs, and SQL by Shujaat Arbab." />
+  <link rel="canonical" href="https://alihassan.dev/lpg-booking.html" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Design System Stylesheet -->
+  <link rel="stylesheet" href="projects.css" />
+  
+  <!-- Color Override & Responsive fixes -->
+  <style>
+    /* Override dark colors with new theme */
+    :root {
+      --bg: #FFFFFF;
+      --bg-subtle: #F8F9FA;
+      --fg: #1A1A2E;
+      --surface: #1A3A6B;
+      --surface-2: #14305A;
+      --surface-white: rgba(255, 255, 255, 0.05);
+      --border: rgba(255, 255, 255, 0.1);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-focus: #FF6B35;
+      --primary: #FF6B35;
+      --primary-fg: #FFFFFF;
+      --primary-glow: rgba(255, 107, 53, 0.25);
+      --accent: #FF8C5A;
+      --accent-glow: rgba(255, 107, 53, 0.15);
+      --accent-warm: #FF8C5A;
+      --muted: rgba(255, 255, 255, 0.7);
+      --muted-dark: rgba(255, 255, 255, 0.5);
+      --grad-primary: linear-gradient(135deg, #FF6B35, #FF8C5A);
+      --grad-surface: linear-gradient(135deg, #1A3A6B, #14305A);
+      --grad-card: linear-gradient(135deg, #1A3A6B, #14305A);
+      --shadow-sm: 0 4px 16px -4px rgba(0, 0, 0, 0.2);
+      --shadow-card: 0 20px 45px -15px rgba(26, 58, 107, 0.4);
+      --shadow-glow: 0 0 50px -10px rgba(255, 107, 53, 0.25);
+      --shadow-glow-accent: 0 0 50px -10px rgba(255, 107, 53, 0.15);
+    }
+
+    /* Body background */
+    html, body {
+      background: #FFFFFF !important;
+      min-height: 100vh;
+      margin:0; padding:0;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    /* Section backgrounds */
+    .section, .section-alt {
+      background: #FFFFFF !important;
+    }
+
+    /* Hero section */
+    .hero-section {
+      background: #FFFFFF !important;
+    }
+
+    /* Remove dark elements */
+    .hero-mesh, .glow-orb, .side-grid, .grid-matrix, .matrix-cell,
+    .ring-inner, .ring-outer, .ring-glow {
+      display: none !important;
+    }
+
+    /* Card backgrounds */
+    .surface-card, .cs-card, .tech-group-card, .benefit-card,
+    .module-card, .arch-node, .arch-diagram-card {
+      background: linear-gradient(135deg, #1A3A6B, #14305A) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      color: white !important;
+    }
+
+    /* Text colors */
+    .hero-title, .section-title, .feature-heading, .cta-title,
+    h1, h2, h3, h4, h5, h6, .benefit-title, .module-name {
+      color: #1A1A2E !important;
+    }
+
+    .hero-desc, .section-desc, .feature-desc, .cta-desc,
+    .benefit-desc, .module-sub, .point-desc {
+      color: #4A4A5A !important;
+    }
+
+    .text-gradient {
+      background: linear-gradient(135deg, #FF6B35, #FF8C5A) !important;
+      -webkit-background-clip: text !important;
+      background-clip: text !important;
+      color: transparent !important;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      background: #FF6B35 !important;
+      color: white !important;
+      border: none !important;
+    }
+
+    .btn-primary:hover {
+      background: #E85D2C !important;
+      color: white !important;
+    }
+
+    .btn-outline {
+      background: transparent !important;
+      border: 2px solid #1A3A6B !important;
+      color: #1A1A2E !important;
+    }
+
+    .btn-outline:hover {
+      background: #1A3A6B !important;
+      color: white !important;
+    }
+
+    /* Navbar */
+    .site-header {
+      background: #1A3A6B !important;
+      border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+    }
+
+    .brand-name, .brand-role, .nav-link {
+      color: white !important;
+    }
+
+    .brand-badge {
+      background: #FF6B35 !important;
+      color: white !important;
+    }
+
+    /* Footer */
+    .site-footer {
+      background: linear-gradient(135deg, #1A3A6B, #14305A) !important;
+      border-top: 1px solid rgba(255,255,255,0.1) !important;
+      color: white !important;
+    }
+
+    .site-footer a, .site-footer p {
+      color: rgba(255,255,255,0.7) !important;
+    }
+
+    .site-footer a:hover {
+      color: #FF6B35 !important;
+    }
+
+    /* Eyebrow badges */
+    .eyebrow-badge {
+      background: rgba(255, 107, 53, 0.15) !important;
+      color: #FF6B35 !important;
+      border-color: rgba(255, 107, 53, 0.2) !important;
+    }
+
+    /* Tech badges */
+    .tech-badge {
+      background: rgba(255, 255, 255, 0.1) !important;
+      color: rgba(255,255,255,0.85) !important;
+      border-color: rgba(255,255,255,0.1) !important;
+    }
+
+    .tech-badge:hover {
+      background: #FF6B35 !important;
+      color: white !important;
+      border-color: #FF6B35 !important;
+    }
+
+    /* CTA Banner */
+    .cta-banner {
+      background: linear-gradient(135deg, #1A3A6B, #14305A) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+
+    .cta-title {
+      color: white !important;
+    }
+    .cta-desc {
+      color: rgba(255,255,255,0.7) !important;
+    }
+
+    /* Feature points */
+    .feature-point-item .point-title {
+      color: white !important;
+    }
+    .feature-point-item .point-desc {
+      color: rgba(255,255,255,0.7) !important;
+    }
+    .point-icon-tile {
+      background: rgba(255, 107, 53, 0.2) !important;
+      color: #FF6B35 !important;
+    }
+
+    /* Section numbers */
+    .section-number {
+      color: rgba(255, 255, 255, 0.05) !important;
+    }
+
+    /* Meta items */
+    .meta-item dt {
+      color: rgba(255,255,255,0.5) !important;
+    }
+    .meta-item dd {
+      color: white !important;
+    }
+
+    /* ===== RESPONSIVE FIXES ===== */
+    * { box-sizing: border-box; }
+    .container { 
+      max-width: 1200px; 
+      margin: 0 auto; 
+      padding: 0 1.5rem; 
+      width: 100%;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+
+    /* header */
+    .header-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+    }
+    .brand-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      flex-wrap: wrap;
+    }
+    .brand-badge {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+    .brand-name { font-weight: 700; font-size: 1.2rem; }
+    .brand-role { font-size: 0.8rem; opacity: 0.8; display: block; }
+    .nav-desktop {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+    }
+    .nav-link { text-decoration: none; font-weight: 500; }
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+    }
+    .hamburger-bar {
+      width: 28px;
+      height: 3px;
+      background: white;
+      border-radius: 4px;
+      transition: 0.3s;
+    }
+
+    /* hero grid */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+    .hero-visual-wrapper {
+      display: flex;
+      justify-content: center;
+    }
+    .hero-metadata {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .meta-item dt { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    .meta-item dd { font-weight: 600; }
+
+    /* challenge grid */
+    .challenge-solution-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    /* architecture flow */
+    .arch-flow-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    .arch-node { height: 100%; }
+
+    /* modules grid */
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    /* feature rows */
+    .feature-showcase-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+    .row-reverse { direction: rtl; }
+    .row-reverse .feature-content { direction: ltr; }
+    .feature-points-list { list-style: none; padding: 0; margin: 1.5rem 0 0; }
+    .feature-point-item {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      align-items: flex-start;
+    }
+    .point-icon-tile {
+      flex-shrink: 0;
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    /* tech stack */
+    .tech-stack-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    .tech-badge-wrap { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+    .tech-badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      border: 1px solid;
+    }
+
+    /* benefits */
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    /* cta */
+    .cta-banner { padding: 2.5rem 2rem; }
+    .cta-buttons { flex-wrap: wrap; justify-content: center; }
+
+    /* footer */
+    .footer-links { flex-wrap: wrap; justify-content: center; gap: 1.5rem; }
+
+    /* ===== responsive breakpoints ===== */
+    @media (max-width: 992px) {
+      .hero-grid { grid-template-columns: 1fr; text-align: center; }
+      .hero-metadata { grid-template-columns: 1fr 1fr; }
+      .arch-flow-grid { grid-template-columns: 1fr 1fr; }
+      .modules-grid { grid-template-columns: 1fr 1fr; }
+      .feature-showcase-row { grid-template-columns: 1fr; }
+      .row-reverse { direction: ltr; }
+      .benefits-grid { grid-template-columns: 1fr 1fr; }
+      .tech-stack-container { grid-template-columns: 1fr 1fr; }
+      .challenge-solution-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+  .menu-toggle { display: flex; }
+  .nav-desktop {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    padding: 1rem 0;
+    gap: 0.75rem;
+    align-items: flex-start;
+    background: #1A3A6B !important;  /* Add this line - matches header background */
+    border-radius: 0 0 12px 12px;    /* Add this line - rounded bottom corners */
+    margin-top: 0.5rem;              /* Add this line - slight spacing */
+  }
+  .nav-desktop.is-open { 
+    display: flex; 
+  }
+}
+
+    @media (max-width: 480px) {
+      .hero-grid { gap: 1rem; }
+      .hero-title { font-size: 1.8rem; }
+      .hero-metadata { grid-template-columns: 1fr; gap: 0.25rem; }
+      .modules-grid { grid-template-columns: 1fr; }
+      .brand-name { font-size: 1rem; }
+      .brand-role { font-size: 0.7rem; }
+      .container { padding: 0 1rem; }
+      .feature-showcase-row { padding: 1rem !important; }
+      .cs-card { padding: 1rem !important; }
+      .arch-diagram-card { padding: 1rem !important; }
+      .cta-buttons .btn { width: 100%; text-align: center; }
+    }
+
+    /* animation keyframes (keep existing) */
+    @keyframes fadeInUp { 0% { opacity:0; transform:translateY(20px); } 100% { opacity:1; transform:translateY(0); } }
+    @keyframes fadeInRight { 0% { opacity:0; transform:translateX(30px); } 100% { opacity:1; transform:translateX(0); } }
+    @keyframes floatOrb1 { 0%,100% { transform:translate(0,0); } 50% { transform:translate(30px,-30px); } }
+    @keyframes floatOrb2 { 0%,100% { transform:translate(0,0); } 50% { transform:translate(-30px,20px); } }
+    @keyframes floatOrb3 { 0%,100% { transform:translate(-50%,-50%) scale(1); } 50% { transform:translate(-50%,-50%) scale(1.1); } }
+    @keyframes pulseRing1 { 0% { transform:scale(0.8); opacity:0.7; } 100% { transform:scale(1.4); opacity:0; } }
+    @keyframes pulseRing2 { 0% { transform:scale(0.8); opacity:0.6; } 100% { transform:scale(1.5); opacity:0; } }
+    @keyframes morphBlob1 { 0%,100% { border-radius:60% 40% 60% 40% / 40% 60% 40% 60%; } 50% { border-radius:40% 60% 40% 60% / 60% 40% 60% 40%; } }
+    @keyframes morphBlob2 { 0%,100% { border-radius:40% 60% 40% 60% / 60% 40% 60% 40%; } 50% { border-radius:60% 40% 60% 40% / 40% 60% 40% 60%; } }
+    @keyframes floatSquare1 { 0%,100% { transform:rotate(45deg) translate(0,0); } 50% { transform:rotate(45deg) translate(10px,-10px); } }
+    @keyframes floatSquare2 { 0%,100% { transform:rotate(45deg) translate(0,0); } 50% { transform:rotate(45deg) translate(-8px,12px); } }
+    @keyframes floatTriangle { 0%,100% { transform:translate(0,0); } 50% { transform:translate(15px,-10px); } }
+    @keyframes moveLine1 { 0% { transform:translateX(-100%); } 100% { transform:translateX(100vw); } }
+    @keyframes moveLine2 { 0% { transform:translateX(100%); } 100% { transform:translateX(-100vw); } }
+    @keyframes moveLine3 { 0% { transform:translateX(-100%); } 100% { transform:translateX(100vw); } }
+    @keyframes spinSlow { 0% { transform:rotate(0deg); } 100% { transform:rotate(360deg); } }
+    @keyframes floatParticle1 { 0%,100% { transform:translate(0,0); } 50% { transform:translate(20px,-20px); } }
+    @keyframes floatParticle2 { 0%,100% { transform:translate(0,0); } 50% { transform:translate(-20px,15px); } }
+    @keyframes floatParticle3 { 0%,100% { transform:translate(0,0); } 50% { transform:translate(15px,20px); } }
+    @keyframes floatParticle4 { 0%,100% { transform:translate(0,0); } 50% { transform:translate(-15px,-15px); } }
+    @keyframes floatParticle5 { 0%,100% { transform:translate(0,0); } 50% { transform:translate(10px,-10px); } }
+    @keyframes floatParticle6 { 0%,100% { transform:translate(0,0); } 50% { transform:translate(-10px,10px); } }
+    @keyframes floatParticle7 { 0%,100% { transform:translate(0,0); } 50% { transform:translate(8px,-12px); } }
+    @keyframes floatParticle8 { 0%,100% { transform:translate(0,0); } 50% { transform:translate(-12px,8px); } }
+    @keyframes waveMove { 0%,100% { transform:translateX(0); } 50% { transform:translateX(-30px); } }
+  </style>
+</head>
+<body>
+
+  <!-- ============================== HEADER ============================== -->
+  <header class="site-header" style="background: #1A3A6B !important; border-bottom: 1px solid rgba(255,255,255,0.1) !important;">
+    <div class="container header-inner">
+      <a href="index.html#home" class="brand-link">
+        <span class="brand-badge" style="background: #FF6B35 !important; color: white !important;">SA</span>
+        <div>
+          <span class="brand-name" style="color: white !important;">Shujaat Arbab</span>
+          <span class="brand-role" style="color: rgba(255,255,255,0.7) !important;">Full-Stack Developer</span>
+        </div>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" data-menu-toggle>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+
+      <nav class="nav-desktop" aria-label="Project Navigation" data-mobile-nav>
+        <a href="index.html#projects" class="nav-link" style="color: rgba(255,255,255,0.7) !important;">← All Projects</a>
+        <a href="#challenge-outcome" class="nav-link" style="color: rgba(255,255,255,0.7) !important;">Overview</a>
+        <a href="#architecture" class="nav-link" style="color: rgba(255,255,255,0.7) !important;">Architecture</a>
+        <a href="#modules" class="nav-link" style="color: rgba(255,255,255,0.7) !important;">Modules</a>
+        <a href="#features" class="nav-link" style="color: rgba(255,255,255,0.7) !important;">Deep Dive</a>
+        <a href="#tech-stack" class="nav-link" style="color: rgba(255,255,255,0.7) !important;">Tech Stack</a>
+        <a href="#challenges" class="nav-link" style="color: rgba(255,255,255,0.7) !important;">Challenges</a>
+        <a href="index.html#contact" class="btn btn-primary btn-sm" style="background: #FF6B35 !important; color: white !important;">Get in Touch</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- =============================== HERO ============================ -->
+    <section class="hero-section" id="overview" style="background: #FFFFFF !important; padding-top: 8rem; padding-bottom: 5rem; position: relative; overflow: hidden;">
+    
+    <!-- ============== CLEAR & VISIBLE BACKGROUND ANIMATIONS ============== -->
+    
+    <!-- 1. Large Floating Gradient Orbs (Visible) -->
+    <div style="position: absolute; top: -20%; left: -10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(255,107,53,0.15) 0%, rgba(255,107,53,0.05) 40%, transparent 70%); border-radius: 50%; animation: floatOrb1 12s ease-in-out infinite; pointer-events: none;"></div>
+    <div style="position: absolute; bottom: -20%; right: -10%; width: 550px; height: 550px; background: radial-gradient(circle, rgba(26,58,107,0.12) 0%, rgba(26,58,107,0.04) 40%, transparent 70%); border-radius: 50%; animation: floatOrb2 14s ease-in-out infinite 2s; pointer-events: none;"></div>
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 700px; height: 700px; background: radial-gradient(circle, rgba(255,107,53,0.06) 0%, transparent 60%); border-radius: 50%; animation: floatOrb3 16s ease-in-out infinite 4s; pointer-events: none;"></div>
+
+    <!-- 2. Large Pulsing Rings (Visible) -->
+    <div style="position: absolute; top: 15%; right: 8%; width: 200px; height: 200px; border: 3px solid rgba(255,107,53,0.15); border-radius: 50%; animation: pulseRing1 4s ease-out infinite; pointer-events: none;"></div>
+    <div style="position: absolute; top: 15%; right: 8%; width: 280px; height: 280px; border: 2px solid rgba(255,107,53,0.08); border-radius: 50%; animation: pulseRing1 4s ease-out infinite 1.5s; pointer-events: none;"></div>
+    <div style="position: absolute; bottom: 20%; left: 5%; width: 180px; height: 180px; border: 3px solid rgba(26,58,107,0.12); border-radius: 50%; animation: pulseRing2 5s ease-out infinite 0.5s; pointer-events: none;"></div>
+    <div style="position: absolute; bottom: 20%; left: 5%; width: 250px; height: 250px; border: 2px solid rgba(26,58,107,0.06); border-radius: 50%; animation: pulseRing2 5s ease-out infinite 2s; pointer-events: none;"></div>
+
+    <!-- 3. Floating Gradient Blobs (Visible) -->
+    <svg style="position: absolute; top: 5%; left: 5%; width: 150px; height: 150px; opacity: 0.08; pointer-events: none; animation: morphBlob1 8s ease-in-out infinite;" viewBox="0 0 200 200">
+        <path d="M100,10 C160,10 190,60 190,110 C190,160 150,190 100,190 C50,190 10,160 10,110 C10,60 40,10 100,10 Z" fill="#FF6B35"/>
+    </svg>
+    <svg style="position: absolute; bottom: 5%; right: 5%; width: 120px; height: 120px; opacity: 0.06; pointer-events: none; animation: morphBlob2 10s ease-in-out infinite 2s;" viewBox="0 0 200 200">
+        <path d="M100,10 C150,10 190,50 190,100 C190,150 150,190 100,190 C50,190 10,150 10,100 C10,50 50,10 100,10 Z" fill="#1A3A6B"/>
+    </svg>
+
+    <!-- 4. Diagonal Floating Shapes (Visible) -->
+    <div style="position: absolute; top: 25%; right: 3%; width: 60px; height: 60px; border: 3px solid rgba(255,107,53,0.10); border-radius: 12px; transform: rotate(45deg); animation: floatSquare1 9s ease-in-out infinite; pointer-events: none;"></div>
+    <div style="position: absolute; bottom: 30%; left: 3%; width: 50px; height: 50px; border: 3px solid rgba(26,58,107,0.08); border-radius: 12px; transform: rotate(45deg); animation: floatSquare2 11s ease-in-out infinite 2s; pointer-events: none;"></div>
+
+    <!-- 5. Floating Geometric Shapes -->
+    <div style="position: absolute; top: 40%; right: 15%; width: 0; height: 0; border-left: 20px solid transparent; border-right: 20px solid transparent; border-bottom: 35px solid rgba(255,107,53,0.08); animation: floatTriangle 10s ease-in-out infinite 1s; pointer-events: none;"></div>
+    <div style="position: absolute; bottom: 35%; left: 12%; width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-bottom: 25px solid rgba(26,58,107,0.06); animation: floatTriangle 12s ease-in-out infinite 3s; pointer-events: none;"></div>
+
+    <!-- 6. Moving Gradient Lines (Visible) -->
+    <div style="position: absolute; top: 10%; left: 0; width: 200px; height: 4px; background: linear-gradient(90deg, transparent, rgba(255,107,53,0.2), transparent); animation: moveLine1 6s ease-in-out infinite; pointer-events: none;"></div>
+    <div style="position: absolute; bottom: 15%; right: 0; width: 250px; height: 4px; background: linear-gradient(90deg, transparent, rgba(26,58,107,0.15), transparent); animation: moveLine2 7s ease-in-out infinite 3s; pointer-events: none;"></div>
+    <div style="position: absolute; top: 50%; left: 0; width: 150px; height: 3px; background: linear-gradient(90deg, transparent, rgba(255,107,53,0.15), transparent); animation: moveLine3 8s ease-in-out infinite 5s; pointer-events: none;"></div>
+
+    <!-- 7. Dots Grid Pattern (Visible) -->
+    <div style="position: absolute; top: 8%; right: 20%; display: grid; grid-template-columns: repeat(5, 10px); gap: 16px; opacity: 0.15; pointer-events: none;">
+        <div style="width: 10px; height: 10px; background: #FF6B35; border-radius: 50%;"></div>
+        <div style="width: 10px; height: 10px; background: #1A3A6B; border-radius: 50%;"></div>
+        <div style="width: 10px; height: 10px; background: #FF6B35; border-radius: 50%;"></div>
+        <div style="width: 10px; height: 10px; background: #1A3A6B; border-radius: 50%;"></div>
+        <div style="width: 10px; height: 10px; background: #FF6B35; border-radius: 50%;"></div>
+        <div style="width: 10px; height: 10px; background: #1A3A6B; border-radius: 50%;"></div>
+        <div style="width: 10px; height: 10px; background: #FF6B35; border-radius: 50%;"></div>
+        <div style="width: 10px; height: 10px; background: #1A3A6B; border-radius: 50%;"></div>
+        <div style="width: 10px; height: 10px; background: #FF6B35; border-radius: 50%;"></div>
+        <div style="width: 10px; height: 10px; background: #1A3A6B; border-radius: 50%;"></div>
+        <div style="width: 10px; height: 10px; background: #FF6B35; border-radius: 50%;"></div>
+        <div style="width: 10px; height: 10px; background: #1A3A6B; border-radius: 50%;"></div>
+        <div style="width: 10px; height: 10px; background: #FF6B35; border-radius: 50%;"></div>
+        <div style="width: 10px; height: 10px; background: #1A3A6B; border-radius: 50%;"></div>
+        <div style="width: 10px; height: 10px; background: #FF6B35; border-radius: 50%;"></div>
+        <div style="width: 10px; height: 10px; background: #1A3A6B; border-radius: 50%;"></div>
+        <div style="width: 10px; height: 10px; background: #FF6B35; border-radius: 50%;"></div>
+        <div style="width: 10px; height: 10px; background: #1A3A6B; border-radius: 50%;"></div>
+        <div style="width: 10px; height: 10px; background: #FF6B35; border-radius: 50%;"></div>
+        <div style="width: 10px; height: 10px; background: #1A3A6B; border-radius: 50%;"></div>
+        <div style="width: 10px; height: 10px; background: #FF6B35; border-radius: 50%;"></div>
+        <div style="width: 10px; height: 10px; background: #1A3A6B; border-radius: 50%;"></div>
+        <div style="width: 10px; height: 10px; background: #FF6B35; border-radius: 50%;"></div>
+        <div style="width: 10px; height: 10px; background: #1A3A6B; border-radius: 50%;"></div>
+        <div style="width: 10px; height: 10px; background: #FF6B35; border-radius: 50%;"></div>
+        <div style="width: 10px; height: 10px; background: #1A3A6B; border-radius: 50%;"></div>
+        <div style="width: 10px; height: 10px; background: #FF6B35; border-radius: 50%;"></div>
+        <div style="width: 10px; height: 10px; background: #1A3A6B; border-radius: 50%;"></div>
+        <div style="width: 10px; height: 10px; background: #FF6B35; border-radius: 50%;"></div>
+        <div style="width: 10px; height: 10px; background: #1A3A6B; border-radius: 50%;"></div>
+    </div>
+
+    <!-- 8. Rotating Rings (Visible) -->
+    <div style="position: absolute; top: 5%; right: 5%; width: 300px; height: 300px; border: 2px solid rgba(255,107,53,0.05); border-radius: 50%; animation: spinSlow 30s linear infinite; pointer-events: none;"></div>
+    <div style="position: absolute; top: 5%; right: 5%; width: 240px; height: 240px; border: 2px solid rgba(255,107,53,0.08); border-radius: 50%; animation: spinSlow 22s linear infinite reverse; pointer-events: none;"></div>
+    <div style="position: absolute; bottom: 8%; left: 5%; width: 260px; height: 260px; border: 2px solid rgba(26,58,107,0.05); border-radius: 50%; animation: spinSlow 28s linear infinite 5s; pointer-events: none;"></div>
+    <div style="position: absolute; bottom: 8%; left: 5%; width: 200px; height: 200px; border: 2px solid rgba(26,58,107,0.08); border-radius: 50%; animation: spinSlow 20s linear infinite reverse 3s; pointer-events: none;"></div>
+
+    <!-- 9. Floating Particles (Larger & Visible) -->
+    <div style="position: absolute; top: 12%; left: 8%; width: 10px; height: 10px; background: #FF6B35; border-radius: 50%; opacity: 0.3; animation: floatParticle1 7s ease-in-out infinite; pointer-events: none;"></div>
+    <div style="position: absolute; top: 18%; right: 12%; width: 12px; height: 12px; background: #1A3A6B; border-radius: 50%; opacity: 0.25; animation: floatParticle2 9s ease-in-out infinite 1.5s; pointer-events: none;"></div>
+    <div style="position: absolute; bottom: 25%; left: 10%; width: 8px; height: 8px; background: #FF8C5A; border-radius: 50%; opacity: 0.35; animation: floatParticle3 8s ease-in-out infinite 3s; pointer-events: none;"></div>
+    <div style="position: absolute; bottom: 20%; right: 10%; width: 10px; height: 10px; background: #FF6B35; border-radius: 50%; opacity: 0.2; animation: floatParticle4 10s ease-in-out infinite 4s; pointer-events: none;"></div>
+    <div style="position: absolute; top: 45%; left: 5%; width: 8px; height: 8px; background: #1A3A6B; border-radius: 50%; opacity: 0.3; animation: floatParticle5 6s ease-in-out infinite 2s; pointer-events: none;"></div>
+    <div style="position: absolute; top: 55%; right: 8%; width: 10px; height: 10px; background: #FF6B35; border-radius: 50%; opacity: 0.25; animation: floatParticle6 8s ease-in-out infinite 5s; pointer-events: none;"></div>
+    <div style="position: absolute; top: 30%; left: 15%; width: 6px; height: 6px; background: #FF8C5A; border-radius: 50%; opacity: 0.4; animation: floatParticle7 5s ease-in-out infinite 1s; pointer-events: none;"></div>
+    <div style="position: absolute; bottom: 40%; right: 15%; width: 8px; height: 8px; background: #1A3A6B; border-radius: 50%; opacity: 0.2; animation: floatParticle8 7s ease-in-out infinite 3.5s; pointer-events: none;"></div>
+
+    <!-- 10. Decorative Wave Lines at Bottom -->
+    <svg style="position: absolute; bottom: 0; left: 0; width: 100%; height: 100px; pointer-events: none; opacity: 0.04;" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M0,20 C300,80 600,40 900,80 L1200,20 L1200,120 L0,120 Z" fill="#1A3A6B"></path>
+    </svg>
+    <svg style="position: absolute; bottom: 0; left: 0; width: 100%; height: 70px; pointer-events: none; opacity: 0.03; animation: waveMove 8s ease-in-out infinite;" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M0,60 C300,20 600,80 900,40 L1200,60 L1200,120 L0,120 Z" fill="#FF6B35"></path>
+    </svg>
+
+    <div class="container" style="position: relative; z-index: 2;">
+        <div class="hero-grid">
+            <!-- Hero Text -->
+            <div>
+                <span class="eyebrow-badge" style="background: rgba(255,107,53,0.15) !important; color: #FF6B35 !important; border-color: rgba(255,107,53,0.2) !important; animation: fadeInUp 0.6s ease forwards;">Mobile Engineering</span>
+                <h1 class="hero-title" style="color: #1A1A2E !important; animation: fadeInUp 0.8s ease forwards 0.2s; opacity: 0;">
+                    LPG <br />
+                    <span class="text-gradient" style="background: linear-gradient(135deg, #FF6B35, #FF8C5A) !important; -webkit-background-clip: text !important; background-clip: text !important; color: transparent !important;">Booking App</span>
+                </h1>
+                <p class="hero-desc" style="color: #4A4A5A !important; animation: fadeInUp 1s ease forwards 0.4s; opacity: 0;">
+                    A modern, cross-platform mobile application developed with Flutter, .NET, Entity Framework, REST APIs, and SQL, featuring LPG cylinder booking, role-based management, order tracking, inventory management, and delivery coordination.
+                </p>
+
+                <div class="hero-actions" style="animation: fadeInUp 1.2s ease forwards 0.6s; opacity: 0;">
+                    <a href="#features" class="btn btn-primary" style="background: #FF6B35 !important; color: white !important; border: none !important;">Explore Features</a>
+                    <a href="index.html#contact" class="btn btn-outline" style="background: transparent !important; border: 2px solid #1A3A6B !important; color: #1A1A2E !important;">Request Demo</a>
+                </div>
+
+                <!-- Metadata List -->
+                <dl class="hero-metadata" style="animation: fadeInUp 1.4s ease forwards 0.8s; opacity: 0;">
+                    <div class="meta-item">
+                        <dt style="color: #4A4A5A !important;">Role</dt>
+                        <dd style="color: #1A1A2E !important;">Mobile App Developer</dd>
+                    </div>
+                    <div class="meta-item">
+                        <dt style="color: #4A4A5A !important;">Platform</dt>
+                        <dd style="color: #1A1A2E !important;">Flutter - Dart</dd>
+                    </div>
+                    <div class="meta-item">
+                        <dt style="color: #4A4A5A !important;">Category</dt>
+                        <dd style="color: #1A1A2E !important;">Production Project</dd>
+                    </div>
+                    <div class="meta-item">
+                        <dt style="color: #4A4A5A !important;">Primary Stack</dt>
+                        <dd style="color: #1A1A2E !important;">Flutter · .NET · SQL</dd>
+                    </div>
+                </dl>
+            </div>
+
+            <!-- Hero Visual: Mobile Device Preview -->
+            <div class="hero-visual-wrapper" style="animation: fadeInRight 1s ease forwards 0.4s; opacity: 0;">
+                <img
+                    src="./assests/screenshots/splash-screen.png"
+                    alt="LPG Booking App splash screen with logo and loading indicator"
+                    style="max-width:280px; width:100%; display:block; border-radius:32px; box-shadow:0 30px 70px rgba(26,58,107,0.2);"
+                />
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- ==================== THE CHALLENGE & THE OUTCOME ================= -->
+    <section class="section" id="challenge-outcome" style="background: #FFFFFF !important; padding: 5rem 0;">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow-badge" style="background: rgba(255,107,53,0.15) !important; color: #FF6B35 !important; border-color: rgba(255,107,53,0.2) !important;">Case Study Summary</span>
+          <h2 class="section-title" style="color: #1A1A2E !important;">The Challenge &amp; The Outcome</h2>
+          <p class="section-desc" style="color: #4A4A5A !important;">
+            What sparked LPG Booking App — and what shipped as a working cross-platform product.
+          </p>
+        </div>
+
+        <div class="challenge-solution-grid">
+          <div class="cs-card" style="background: linear-gradient(135deg, #1A3A6B, #14305A) !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 16px !important; padding: 2rem;">
+            <span class="cs-tag" style="color: #FF6B35 !important;">The Problem</span>
+            <p class="cs-problem" style="color: white !important;">
+              LPG cylinder booking and delivery is often managed through phone calls and manual processes, making it difficult for customers to check availability, compare rates, track orders, or know when their cylinders will be delivered. I set out to build a complete LPG booking and distribution system that simplifies the process for customers, vendors, and suppliers while providing better order, inventory, and delivery management.
+            </p>
+          </div>
+
+          <div class="cs-card" style="background: linear-gradient(135deg, #1A3A6B, #14305A) !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 16px !important; padding: 2rem;">
+            <span class="cs-tag" style="color: #FF6B35 !important;">The Outcome</span>
+            <p class="cs-solution" style="color: rgba(255,255,255,0.85) !important; border-left-color: #FF6B35 !important;">
+              The LPG Booking &amp; Delivery System was developed as a complete role-based application where customers can book cylinders, select vendors and cylinder types, track orders, and manage their profiles. Vendors can process customer orders, manage deliveries, and place orders with suppliers, while suppliers manage inventory and distribute cylinders across shops — all supported by a REST API, SQL database, and efficient order and inventory management.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PLATFORM ARCHITECTURE ====================== -->
+    <section class="section section-alt" id="architecture" style="background: #F8F9FA !important; padding: 5rem 0;">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow-badge" style="background: rgba(255,107,53,0.15) !important; color: #FF6B35 !important; border-color: rgba(255,107,53,0.2) !important;">Technical Pipeline</span>
+          <h2 class="section-title" style="color: #1A1A2E !important;">Cross-Platform Mobile Architecture</h2>
+          <p class="section-desc" style="color: #4A4A5A !important;">
+            A modular mobile application architecture built with Flutter, integrating .NET, Entity Framework, SQL database, and RESTful APIs for secure authentication, role-based access, order management, inventory tracking, and reliable LPG booking and delivery workflows.
+          </p>
+        </div>
+
+        <div class="arch-diagram-card" style="background: linear-gradient(135deg, #1A3A6B, #14305A) !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 16px !important; padding: 2rem;">
+          <div class="arch-flow-grid">
+            <!-- Mobile Client Layer -->
+            <div class="arch-node" style="background: rgba(255,255,255,0.05) !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 12px !important; padding: 1.5rem;">
+              <div class="arch-node-header">
+                <div class="arch-icon" style="background: rgba(255,107,53,0.2) !important; color: #FF6B35 !important;">📱</div>
+                <h3 class="arch-node-title" style="color: white !important;">Mobile UI Tier</h3>
+              </div>
+              <ul class="arch-node-list" style="color: rgba(255,255,255,0.7) !important;">
+                <li>Flutter Framework</li>
+                <li>Dart Programming</li>
+                <li>Responsive UI Design</li>
+                <li>Role-Based User Interfaces</li>
+                <li>Vendor &amp; Supplier Dashboards</li>
+              </ul>
+            </div>
+
+            <!-- Authentication Layer -->
+            <div class="arch-node" style="background: rgba(255,255,255,0.05) !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 12px !important; padding: 1.5rem;">
+              <div class="arch-node-header">
+                <div class="arch-icon" style="background: rgba(255,107,53,0.2) !important; color: #FF6B35 !important;">🔒</div>
+                <h3 class="arch-node-title" style="color: white !important;">Security &amp; Access</h3>
+              </div>
+              <ul class="arch-node-list" style="color: rgba(255,255,255,0.7) !important;">
+                <li>Role-Based Authentication</li>
+                <li>Customer, Vendor &amp; Supplier Access</li>
+                <li>Secure REST API Communication</li>
+                <li>Protected User Data</li>
+                <li>Role-Based Dashboard Access</li>
+              </ul>
+            </div>
+
+            <!-- API & Logic Layer -->
+            <div class="arch-node" style="background: rgba(255,255,255,0.05) !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 12px !important; padding: 1.5rem;">
+              <div class="arch-node-header">
+                <div class="arch-icon" style="background: rgba(255,107,53,0.2) !important; color: #FF6B35 !important;">⚡</div>
+                <h3 class="arch-node-title" style="color: white !important;">REST API Services</h3>
+              </div>
+              <ul class="arch-node-list" style="color: rgba(255,255,255,0.7) !important;">
+                <li>LPG Cylinder Availability</li>
+                <li>Customer Order Management</li>
+                <li>Vendor &amp; Supplier Management</li>
+                <li>Order &amp; Delivery Tracking</li>
+                <li>Inventory &amp; Stock Management</li>
+              </ul>
+            </div>
+
+            <!-- Data & Offline Layer -->
+            <div class="arch-node" style="background: rgba(255,255,255,0.05) !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 12px !important; padding: 1.5rem;">
+              <div class="arch-node-header">
+                <div class="arch-icon" style="background: rgba(255,107,53,0.2) !important; color: #FF6B35 !important;">💾</div>
+                <h3 class="arch-node-title" style="color: white !important;">Database &amp; Storage</h3>
+              </div>
+              <ul class="arch-node-list" style="color: rgba(255,255,255,0.7) !important;">
+                <li>SQL Relational Database</li>
+                <li>Entity Framework Data Access</li>
+                <li>Customer &amp; Order Records</li>
+                <li>LPG Inventory &amp; Stock Records</li>
+                <li>Vendor &amp; Supplier Data</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= CORE MODULES GRID ======================= -->
+    <section class="section" id="modules" style="background: #FFFFFF !important; padding: 5rem 0;">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow-badge" style="background: rgba(255,107,53,0.15) !important; color: #FF6B35 !important; border-color: rgba(255,107,53,0.2) !important;">Application Modules</span>
+          <h2 class="section-title" style="color: #1A1A2E !important;">Built for Seamless LPG Booking &amp; Delivery</h2>
+          <p class="section-desc" style="color: #4A4A5A !important;">
+            Engineered around a seamless user experience — from browsing available LPG cylinders and vendors to placing orders, tracking delivery status, and managing bookings in real time.
+          </p>
+        </div>
+
+        <div class="modules-grid">
+          <a href="#feature-booking" class="module-card" style="background: linear-gradient(135deg, #1A3A6B, #14305A) !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 12px !important; padding: 1.5rem; text-align: center; color: white !important; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 12px 35px rgba(26,58,107,0.35)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+            <div class="module-icon-box" style="font-size: 2rem; margin-bottom: 0.5rem;">📦</div>
+            <div class="module-name" style="color: white !important; font-weight: 600;">Cylinder Booking</div>
+            <div class="module-sub" style="color: rgba(255,255,255,0.6) !important; font-size: 0.8rem;">Cylinder selection &amp; order placement</div>
+          </a>
+
+          <a href="#feature-vendors" class="module-card" style="background: linear-gradient(135deg, #1A3A6B, #14305A) !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 12px !important; padding: 1.5rem; text-align: center; color: white !important; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 12px 35px rgba(26,58,107,0.35)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+            <div class="module-icon-box" style="font-size: 2rem; margin-bottom: 0.5rem;">🏪</div>
+            <div class="module-name" style="color: white !important; font-weight: 600;">Vendor Management</div>
+            <div class="module-sub" style="color: rgba(255,255,255,0.6) !important; font-size: 0.8rem;">Vendor selection &amp; order processing</div>
+          </a>
+
+          <a href="#feature-auth" class="module-card" style="background: linear-gradient(135deg, #1A3A6B, #14305A) !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 12px !important; padding: 1.5rem; text-align: center; color: white !important; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 12px 35px rgba(26,58,107,0.35)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+            <div class="module-icon-box" style="font-size: 2rem; margin-bottom: 0.5rem;">🛡️</div>
+            <div class="module-name" style="color: white !important; font-weight: 600;">Role-Based Access</div>
+            <div class="module-sub" style="color: rgba(255,255,255,0.6) !important; font-size: 0.8rem;">Customer, vendor &amp; supplier portals</div>
+          </a>
+
+          <a href="#feature-tracking" class="module-card" style="background: linear-gradient(135deg, #1A3A6B, #14305A) !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 12px !important; padding: 1.5rem; text-align: center; color: white !important; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 12px 35px rgba(26,58,107,0.35)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+            <div class="module-icon-box" style="font-size: 2rem; margin-bottom: 0.5rem;">🔄</div>
+            <div class="module-name" style="color: white !important; font-weight: 600;">Order Tracking</div>
+            <div class="module-sub" style="color: rgba(255,255,255,0.6) !important; font-size: 0.8rem;">Order status &amp; delivery updates</div>
+          </a>
+
+          <a href="#feature-inventory" class="module-card" style="background: linear-gradient(135deg, #1A3A6B, #14305A) !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 12px !important; padding: 1.5rem; text-align: center; color: white !important; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 12px 35px rgba(26,58,107,0.35)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+            <div class="module-icon-box" style="font-size: 2rem; margin-bottom: 0.5rem;">📊</div>
+            <div class="module-name" style="color: white !important; font-weight: 600;">Inventory Management</div>
+            <div class="module-sub" style="color: rgba(255,255,255,0.6) !important; font-size: 0.8rem;">Cylinder stock &amp; distribution tracking</div>
+          </a>
+
+          <a href="#feature-history" class="module-card" style="background: linear-gradient(135deg, #1A3A6B, #14305A) !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 12px !important; padding: 1.5rem; text-align: center; color: white !important; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 12px 35px rgba(26,58,107,0.35)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+            <div class="module-icon-box" style="font-size: 2rem; margin-bottom: 0.5rem;">📋</div>
+            <div class="module-name" style="color: white !important; font-weight: 600;">Order History</div>
+            <div class="module-sub" style="color: rgba(255,255,255,0.6) !important; font-size: 0.8rem;">Booking records &amp; order management</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= DEEP DIVE FEATURE SHOWCASES =================== -->
+    <section class="section section-alt" id="features" style="background: #F8F9FA !important; padding: 5rem 0;">
+      <div class="container">
+
+        <!-- 01 — Vendor Listing -->
+        <div class="feature-showcase-row" id="feature-discovery" style="background: #FFFFFF !important; border-radius: 16px; padding: 2rem; margin-bottom: 2rem;">
+          <div class="feature-content">
+            <span class="section-number" style="color: rgba(26,58,107,0.05) !important;">01</span>
+            <span class="eyebrow-badge" style="background: rgba(255,107,53,0.15) !important; color: #FF6B35 !important; border-color: rgba(255,107,53,0.2) !important;">Vendor Discovery</span>
+            <h2 class="feature-heading" style="color: #1A1A2E !important;">Vendor Listing &amp; Cylinder Availability</h2>
+            <p class="feature-desc" style="color: #4A4A5A !important;">
+              Enables customers to browse LPG vendors based on their city, compare available shops, check cylinder types and prices, and select the most suitable vendor for their order.
+            </p>
+            <ul class="feature-points-list">
+              <li class="feature-point-item">
+                <div class="point-icon-tile" style="background: rgba(255,107,53,0.15) !important; color: #FF6B35 !important;">📍</div>
+                <div>
+                  <h3 class="point-title" style="color: #1A1A2E !important;">City-Based Vendor Listing</h3>
+                  <p class="point-desc" style="color: #4A4A5A !important;">Customers can view available LPG vendors and their shops based on their selected city.</p>
+                </div>
+              </li>
+              <li class="feature-point-item">
+                <div class="point-icon-tile" style="background: rgba(255,107,53,0.15) !important; color: #FF6B35 !important;">🏪</div>
+                <div>
+                  <h3 class="point-title" style="color: #1A1A2E !important;">Shop &amp; Cylinder Details</h3>
+                  <p class="point-desc" style="color: #4A4A5A !important;">View vendor shops, available cylinder types, current stock, and prices before placing an order.</p>
+                </div>
+              </li>
+              <li class="feature-point-item">
+                <div class="point-icon-tile" style="background: rgba(255,107,53,0.15) !important; color: #FF6B35 !important;">⚡</div>
+                <div>
+                  <h3 class="point-title" style="color: #1A1A2E !important;">Easy Vendor Selection</h3>
+                  <p class="point-desc" style="color: #4A4A5A !important;">Customers can compare available options and select their preferred vendor for a seamless booking experience.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div style="display:flex; justify-content:center;">
+            <img src="./assests/screenshots/vendor-listing.png" alt="LPG vendor listing showing shops, cylinder availability, and prices" style="max-width:260px; width:100%; border-radius:26px; box-shadow:0 25px 55px rgba(26,58,107,0.2);" />
+          </div>
+        </div>
+
+        <!-- 02 — Order Placing -->
+        <div class="feature-showcase-row row-reverse" id="feature-scheduler" style="background: #FFFFFF !important; border-radius: 16px; padding: 2rem; margin-bottom: 2rem;">
+          <div class="feature-content">
+            <span class="section-number" style="color: rgba(26,58,107,0.05) !important;">02</span>
+            <span class="eyebrow-badge" style="background: rgba(255,107,53,0.15) !important; color: #FF6B35 !important; border-color: rgba(255,107,53,0.2) !important;">Order Management</span>
+            <h2 class="feature-heading" style="color: #1A1A2E !important;">Simple LPG Order Placement</h2>
+            <p class="feature-desc" style="color: #4A4A5A !important;">
+              A straightforward booking flow that allows customers to select their preferred cylinder size, quantity, and purpose before reviewing and placing an LPG order.
+            </p>
+            <ul class="feature-points-list">
+              <li class="feature-point-item">
+                <div class="point-icon-tile" style="background: rgba(255,107,53,0.15) !important; color: #FF6B35 !important;">🛢️</div>
+                <div>
+                  <h3 class="point-title" style="color: #1A1A2E !important;">Cylinder Selection</h3>
+                  <p class="point-desc" style="color: #4A4A5A !important;">Customers can choose from available cylinder sizes such as 11kg, 15kg, or 45kg based on their requirements.</p>
+                </div>
+              </li>
+              <li class="feature-point-item">
+                <div class="point-icon-tile" style="background: rgba(255,107,53,0.15) !important; color: #FF6B35 !important;">🔢</div>
+                <div>
+                  <h3 class="point-title" style="color: #1A1A2E !important;">Quantity &amp; Purpose</h3>
+                  <p class="point-desc" style="color: #4A4A5A !important;">Select the required number of cylinders and specify the purpose of the order before proceeding.</p>
+                </div>
+              </li>
+              <li class="feature-point-item">
+                <div class="point-icon-tile" style="background: rgba(255,107,53,0.15) !important; color: #FF6B35 !important;">📦</div>
+                <div>
+                  <h3 class="point-title" style="color: #1A1A2E !important;">Order Placement</h3>
+                  <p class="point-desc" style="color: #4A4A5A !important;">Review the selected cylinder details and submit the order directly to the chosen vendor.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+            <img src="./assests/screenshots/order-cylinder-selection.png" alt="LPG order screen showing cylinder size and quantity selection" style="max-width:220px; width:100%; border-radius:24px; box-shadow:0 25px 55px rgba(26,58,107,0.2);" />
+            <img src="./assests/screenshots/order-placement.png" alt="LPG order screen showing purpose selection and order placement" style="max-width:220px; width:100%; border-radius:24px; box-shadow:0 25px 55px rgba(26,58,107,0.2);" />
+          </div>
+        </div>
+
+        <!-- 03 — Ratings -->
+        <div class="feature-showcase-row" id="feature-auth" style="background: #FFFFFF !important; border-radius: 16px; padding: 2rem; margin-bottom: 2rem;">
+          <div class="feature-content">
+            <span class="section-number" style="color: rgba(26,58,107,0.05) !important;">03</span>
+            <span class="eyebrow-badge" style="background: rgba(255,107,53,0.15) !important; color: #FF6B35 !important; border-color: rgba(255,107,53,0.2) !important;">Ratings &amp; Feedback</span>
+            <h2 class="feature-heading" style="color: #1A1A2E !important;">Vendor &amp; Supplier Rating System</h2>
+            <p class="feature-desc" style="color: #4A4A5A !important;">
+              A role-based rating system that allows customers and vendors to share feedback on completed orders, helping maintain service quality and build trust across the LPG supply chain.
+            </p>
+            <ul class="feature-points-list">
+              <li class="feature-point-item">
+                <div class="point-icon-tile" style="background: rgba(255,107,53,0.15) !important; color: #FF6B35 !important;">⭐</div>
+                <div>
+                  <h3 class="point-title" style="color: #1A1A2E !important;">Customer &amp; Vendor Ratings</h3>
+                  <p class="point-desc" style="color: #4A4A5A !important;">Customers can rate vendors after receiving their LPG order and share their experience through a simple rating system.</p>
+                </div>
+              </li>
+              <li class="feature-point-item">
+                <div class="point-icon-tile" style="background: rgba(255,107,53,0.15) !important; color: #FF6B35 !important;">🏪</div>
+                <div>
+                  <h3 class="point-title" style="color: #1A1A2E !important;">Vendor &amp; Supplier Ratings</h3>
+                  <p class="point-desc" style="color: #4A4A5A !important;">Vendors can rate suppliers based on completed supply orders, helping maintain accountability across the distribution process.</p>
+                </div>
+              </li>
+              <li class="feature-point-item">
+                <div class="point-icon-tile" style="background: rgba(255,107,53,0.15) !important; color: #FF6B35 !important;">📊</div>
+                <div>
+                  <h3 class="point-title" style="color: #1A1A2E !important;">Transparent Feedback</h3>
+                  <p class="point-desc" style="color: #4A4A5A !important;">Ratings provide useful feedback on vendor and supplier performance while helping improve service quality.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+            <img src="./assests/screenshots/customer-rating.png" alt="Customer rating screen for LPG vendor" style="max-width:220px; width:100%; border-radius:24px; box-shadow:0 25px 55px rgba(26,58,107,0.2);" />
+          </div>
+        </div>
+
+        <!-- 04 — Schedule and Details -->
+        <div class="feature-showcase-row row-reverse" id="feature-tracking" style="background: #FFFFFF !important; border-radius: 16px; padding: 2rem; margin-bottom: 2rem;">
+          <div class="feature-content">
+            <span class="section-number" style="color: rgba(26,58,107,0.05) !important;">04</span>
+            <span class="eyebrow-badge" style="background: rgba(255,107,53,0.15) !important; color: #FF6B35 !important; border-color: rgba(255,107,53,0.2) !important;">Order Management</span>
+            <h2 class="feature-heading" style="color: #1A1A2E !important;">Scheduled Orders &amp; Order Details</h2>
+            <p class="feature-desc" style="color: #4A4A5A !important;">
+              Customers can view their scheduled LPG orders and access complete order details, including vendor information, cylinder type, quantity, purpose, pricing, and current order status.
+            </p>
+            <ul class="feature-points-list">
+              <li class="feature-point-item">
+                <div class="point-icon-tile" style="background: rgba(255,107,53,0.15) !important; color: #FF6B35 !important;">📅</div>
+                <div>
+                  <h3 class="point-title" style="color: #1A1A2E !important;">Scheduled Orders</h3>
+                  <p class="point-desc" style="color: #4A4A5A !important;">View upcoming LPG orders with scheduled delivery dates and important order information in one place.</p>
+                </div>
+              </li>
+              <li class="feature-point-item">
+                <div class="point-icon-tile" style="background: rgba(255,107,53,0.15) !important; color: #FF6B35 !important;">🧾</div>
+                <div>
+                  <h3 class="point-title" style="color: #1A1A2E !important;">Detailed Order View</h3>
+                  <p class="point-desc" style="color: #4A4A5A !important;">Each order displays the selected vendor, cylinder size, quantity, purpose, price, and delivery details.</p>
+                </div>
+              </li>
+              <li class="feature-point-item">
+                <div class="point-icon-tile" style="background: rgba(255,107,53,0.15) !important; color: #FF6B35 !important;">🔄</div>
+                <div>
+                  <h3 class="point-title" style="color: #1A1A2E !important;">Order Status Tracking</h3>
+                  <p class="point-desc" style="color: #4A4A5A !important;">Customers can monitor the progress of their orders from placement and processing through delivery.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+            <img src="./assests/screenshots/scheduled-orders.png" alt="LPG scheduled orders screen showing upcoming customer orders" style="max-width:220px; width:100%; border-radius:24px; box-shadow:0 25px 55px rgba(26,58,107,0.2);" />
+            <img src="./assests/screenshots/order-details.png" alt="LPG order details screen showing vendor, cylinder, quantity, price, and order status" style="max-width:220px; width:100%; border-radius:24px; box-shadow:0 25px 55px rgba(26,58,107,0.2);" />
+          </div>
+        </div>
+
+        <!-- 05 — Vendor and Supplier Dashboard -->
+        <div class="feature-showcase-row" id="feature-services" style="background: #FFFFFF !important; border-radius: 16px; padding: 2rem; margin-bottom: 2rem;">
+          <div class="feature-content">
+            <span class="section-number" style="color: rgba(26,58,107,0.05) !important;">05</span>
+            <span class="eyebrow-badge" style="background: rgba(255,107,53,0.15) !important; color: #FF6B35 !important; border-color: rgba(255,107,53,0.2) !important;">Supply Operations</span>
+            <h2 class="feature-heading" style="color: #1A1A2E !important;">Vendor &amp; Supplier Dashboard</h2>
+            <p class="feature-desc" style="color: #4A4A5A !important;">
+              Dedicated dashboards give vendors and suppliers a clear overview of cylinder inventory, shop and plant stock, and order movement across the LPG distribution process.
+            </p>
+            <ul class="feature-points-list">
+              <li class="feature-point-item">
+                <div class="point-icon-tile" style="background: rgba(255,107,53,0.15) !important; color: #FF6B35 !important;">📊</div>
+                <div>
+                  <h3 class="point-title" style="color: #1A1A2E !important;">Inventory Overview</h3>
+                  <p class="point-desc" style="color: #4A4A5A !important;">View total available cylinders across vendor shops and supplier plants from a centralized dashboard.</p>
+                </div>
+              </li>
+              <li class="feature-point-item">
+                <div class="point-icon-tile" style="background: rgba(255,107,53,0.15) !important; color: #FF6B35 !important;">📦</div>
+                <div>
+                  <h3 class="point-title" style="color: #1A1A2E !important;">Order Status Summary</h3>
+                  <p class="point-desc" style="color: #4A4A5A !important;">Track pending, dispatched, and delivered cylinder orders with clear status counts and updates.</p>
+                </div>
+              </li>
+              <li class="feature-point-item">
+                <div class="point-icon-tile" style="background: rgba(255,107,53,0.15) !important; color: #FF6B35 !important;">🏪</div>
+                <div>
+                  <h3 class="point-title" style="color: #1A1A2E !important;">Multi-Shop &amp; Plant Tracking</h3>
+                  <p class="point-desc" style="color: #4A4A5A !important;">Monitor stock and distribution across multiple shops and supplier plants to support efficient supply management.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+            <img src="./assests/screenshots/vendor-dashboard.png" alt="Vendor dashboard showing cylinder inventory and order status" style="max-width:220px; width:100%; border-radius:24px; box-shadow:0 25px 55px rgba(26,58,107,0.2);" />
+            <img src="./assests/screenshots/supplier-dashboard.png" alt="Supplier dashboard showing plant inventory and cylinder order status" style="max-width:220px; width:100%; border-radius:24px; box-shadow:0 25px 55px rgba(26,58,107,0.2);" />
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================== TECHNOLOGY STACK ========================== -->
+    <section class="section" id="tech-stack" style="background: #FFFFFF !important; padding: 5rem 0;">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow-badge" style="background: rgba(255,107,53,0.15) !important; color: #FF6B35 !important; border-color: rgba(255,107,53,0.2) !important;">Mobile Engineering Stack</span>
+          <h2 class="section-title" style="color: #1A1A2E !important;">Technical Stack &amp; Tools</h2>
+          <p class="section-desc" style="color: #4A4A5A !important;">
+            Built using Flutter, .NET, Entity Framework, REST APIs, and SQL, following a scalable architecture for reliable LPG booking, order management, inventory tracking, and delivery workflows.
+          </p>
+        </div>
+
+        <div class="tech-stack-container">
+          <div class="tech-group-card" style="background: linear-gradient(135deg, #1A3A6B, #14305A) !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 12px !important; padding: 1.5rem;">
+            <h3 class="tech-group-title" style="color: white !important;">📱 Mobile Architecture</h3>
+            <div class="tech-badge-wrap">
+              <span class="tech-badge" style="background: rgba(255,255,255,0.1) !important; color: rgba(255,255,255,0.85) !important; border-color: rgba(255,255,255,0.1) !important;">Flutter</span>
+              <span class="tech-badge" style="background: rgba(255,255,255,0.1) !important; color: rgba(255,255,255,0.85) !important; border-color: rgba(255,255,255,0.1) !important;">Dart</span>
+              <span class="tech-badge" style="background: rgba(255,255,255,0.1) !important; color: rgba(255,255,255,0.85) !important; border-color: rgba(255,255,255,0.1) !important;">Responsive UI</span>
+              <span class="tech-badge" style="background: rgba(255,255,255,0.1) !important; color: rgba(255,255,255,0.85) !important; border-color: rgba(255,255,255,0.1) !important;">Role-Based UI</span>
+              <span class="tech-badge" style="background: rgba(255,255,255,0.1) !important; color: rgba(255,255,255,0.85) !important; border-color: rgba(255,255,255,0.1) !important;">State Management</span>
+            </div>
+          </div>
+
+          <div class="tech-group-card" style="background: linear-gradient(135deg, #1A3A6B, #14305A) !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 12px !important; padding: 1.5rem;">
+            <h3 class="tech-group-title" style="color: white !important;">⚙️ Backend &amp; APIs</h3>
+            <div class="tech-badge-wrap">
+              <span class="tech-badge" style="background: rgba(255,255,255,0.1) !important; color: rgba(255,255,255,0.85) !important; border-color: rgba(255,255,255,0.1) !important;">.NET</span>
+              <span class="tech-badge" style="background: rgba(255,255,255,0.1) !important; color: rgba(255,255,255,0.85) !important; border-color: rgba(255,255,255,0.1) !important;">Entity Framework</span>
+              <span class="tech-badge" style="background: rgba(255,255,255,0.1) !important; color: rgba(255,255,255,0.85) !important; border-color: rgba(255,255,255,0.1) !important;">REST APIs</span>
+              <span class="tech-badge" style="background: rgba(255,255,255,0.1) !important; color: rgba(255,255,255,0.85) !important; border-color: rgba(255,255,255,0.1) !important;">JSON</span>
+              <span class="tech-badge" style="background: rgba(255,255,255,0.1) !important; color: rgba(255,255,255,0.85) !important; border-color: rgba(255,255,255,0.1) !important;">HTTP</span>
+            </div>
+          </div>
+
+          <div class="tech-group-card" style="background: linear-gradient(135deg, #1A3A6B, #14305A) !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 12px !important; padding: 1.5rem;">
+            <h3 class="tech-group-title" style="color: white !important;">💾 Database</h3>
+            <div class="tech-badge-wrap">
+              <span class="tech-badge" style="background: rgba(255,255,255,0.1) !important; color: rgba(255,255,255,0.85) !important; border-color: rgba(255,255,255,0.1) !important;">SQL</span>
+              <span class="tech-badge" style="background: rgba(255,255,255,0.1) !important; color: rgba(255,255,255,0.85) !important; border-color: rgba(255,255,255,0.1) !important;">Entity Framework ORM</span>
+              <span class="tech-badge" style="background: rgba(255,255,255,0.1) !important; color: rgba(255,255,255,0.85) !important; border-color: rgba(255,255,255,0.1) !important;">Relational Database</span>
+              <span class="tech-badge" style="background: rgba(255,255,255,0.1) !important; color: rgba(255,255,255,0.85) !important; border-color: rgba(255,255,255,0.1) !important;">CRUD Operations</span>
+            </div>
+          </div>
+
+          <div class="tech-group-card" style="background: linear-gradient(135deg, #1A3A6B, #14305A) !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 12px !important; padding: 1.5rem;">
+            <h3 class="tech-group-title" style="color: white !important;">🛠️ Tools &amp; Workflow</h3>
+            <div class="tech-badge-wrap">
+              <span class="tech-badge" style="background: rgba(255,255,255,0.1) !important; color: rgba(255,255,255,0.85) !important; border-color: rgba(255,255,255,0.1) !important;">Git &amp; GitHub</span>
+              <span class="tech-badge" style="background: rgba(255,255,255,0.1) !important; color: rgba(255,255,255,0.85) !important; border-color: rgba(255,255,255,0.1) !important;">Visual Studio</span>
+              <span class="tech-badge" style="background: rgba(255,255,255,0.1) !important; color: rgba(255,255,255,0.85) !important; border-color: rgba(255,255,255,0.1) !important;">Android Studio</span>
+              <span class="tech-badge" style="background: rgba(255,255,255,0.1) !important; color: rgba(255,255,255,0.85) !important; border-color: rgba(255,255,255,0.1) !important;">Postman</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================== CHALLENGES & SOLUTIONS ======================= -->
+    <section class="section section-alt" id="challenges" style="background: #F8F9FA !important; padding: 5rem 0;">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow-badge" style="background: rgba(255,107,53,0.15) !important; color: #FF6B35 !important; border-color: rgba(255,107,53,0.2) !important;">Engineering Problem Solving</span>
+          <h2 class="section-title" style="color: #1A1A2E !important;">Key Challenges &amp; Technical Solutions</h2>
+          <p class="section-desc" style="color: #4A4A5A !important;">
+            Technical challenges addressed throughout the development of the LPG booking, distribution, and inventory management system.
+          </p>
+        </div>
+
+        <div class="challenge-solution-grid">
+          <div class="cs-card" style="background: linear-gradient(135deg, #1A3A6B, #14305A) !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 12px !important; padding: 1.5rem;">
+            <span class="cs-tag" style="color: #FF6B35 !important;">01 · Role-Based Access</span>
+            <p class="cs-problem" style="color: white !important;">Challenge: Different users required different permissions and workflows across the customer, vendor, and supplier portals.</p>
+            <p class="cs-solution" style="color: rgba(255,255,255,0.8) !important; border-left-color: #FF6B35 !important;">Solution: Implemented role-based access control to provide each user type with the appropriate dashboards, features, and operations.</p>
+          </div>
+
+          <div class="cs-card" style="background: linear-gradient(135deg, #1A3A6B, #14305A) !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 12px !important; padding: 1.5rem;">
+            <span class="cs-tag" style="color: #FF6B35 !important;">02 · Inventory Synchronization</span>
+            <p class="cs-problem" style="color: white !important;">Challenge: Keeping cylinder stock accurate across multiple vendor shops and supplier plants required consistent inventory updates.</p>
+            <p class="cs-solution" style="color: rgba(255,255,255,0.8) !important; border-left-color: #FF6B35 !important;">Solution: Connected inventory operations with the backend database to update stock records as cylinders were ordered, dispatched, and delivered.</p>
+          </div>
+
+          <div class="cs-card" style="background: linear-gradient(135deg, #1A3A6B, #14305A) !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 12px !important; padding: 1.5rem;">
+            <span class="cs-tag" style="color: #FF6B35 !important;">03 · Order Workflow Management</span>
+            <p class="cs-problem" style="color: white !important;">Challenge: Orders move through multiple stages from customer booking to vendor processing and final delivery.</p>
+            <p class="cs-solution" style="color: rgba(255,255,255,0.8) !important; border-left-color: #FF6B35 !important;">Solution: Designed structured order statuses and REST API workflows to track orders throughout the complete LPG distribution process.</p>
+          </div>
+
+          <div class="cs-card" style="background: linear-gradient(135deg, #1A3A6B, #14305A) !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 12px !important; padding: 1.5rem;">
+            <span class="cs-tag" style="color: #FF6B35 !important;">04 · Multi-Level Supply Management</span>
+            <p class="cs-problem" style="color: white !important;">Challenge: Managing the relationship between customers, vendors, shops, suppliers, and plants created a complex distribution workflow.</p>
+            <p class="cs-solution" style="color: rgba(255,255,255,0.8) !important; border-left-color: #FF6B35 !important;">Solution: Built separate vendor and supplier dashboards with centralized order and inventory management to simplify the overall supply chain.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================== DEVELOPER RESPONSIBILITIES =================== -->
+    <section class="section" style="background: #FFFFFF !important; padding: 5rem 0;">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow-badge" style="background: rgba(255,107,53,0.15) !important; color: #FF6B35 !important; border-color: rgba(255,107,53,0.2) !important;">My Contribution</span>
+          <h2 class="section-title" style="color: #1A1A2E !important;">Key Responsibilities &amp; Delivery</h2>
+          <p class="section-desc" style="color: #4A4A5A !important;">
+            Owned the complete application lifecycle from UI design and Flutter development to REST API integration, SQL database management, testing, and deployment.
+          </p>
+        </div>
+
+        <div class="benefits-grid">
+          <div class="benefit-card" style="background: linear-gradient(135deg, #1A3A6B, #14305A) !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 12px !important; padding: 1.5rem; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 12px 35px rgba(26,58,107,0.35)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+            <h3 class="benefit-title" style="color: white !important;">Flutter Architecture</h3>
+            <p class="benefit-desc" style="color: rgba(255,255,255,0.7) !important;">Structured the Flutter application with reusable screens, widgets, role-based dashboards, and organized application layers.</p>
+          </div>
+
+          <div class="benefit-card" style="background: linear-gradient(135deg, #1A3A6B, #14305A) !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 12px !important; padding: 1.5rem; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 12px 35px rgba(26,58,107,0.35)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+            <h3 class="benefit-title" style="color: white !important;">Role-Based Access</h3>
+            <p class="benefit-desc" style="color: rgba(255,255,255,0.7) !important;">Implemented separate access and workflows for customers, vendors, and suppliers based on their roles and responsibilities.</p>
+          </div>
+
+          <div class="benefit-card" style="background: linear-gradient(135deg, #1A3A6B, #14305A) !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 12px !important; padding: 1.5rem; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 12px 35px rgba(26,58,107,0.35)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+            <h3 class="benefit-title" style="color: white !important;">REST API Integration</h3>
+            <p class="benefit-desc" style="color: rgba(255,255,255,0.7) !important;">Connected the Flutter application with .NET REST APIs for vendor listings, cylinder bookings, order management, ratings, and inventory operations.</p>
+          </div>
+
+          <div class="benefit-card" style="background: linear-gradient(135deg, #1A3A6B, #14305A) !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 12px !important; padding: 1.5rem; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 12px 35px rgba(26,58,107,0.35)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+            <h3 class="benefit-title" style="color: white !important;">Database Management</h3>
+            <p class="benefit-desc" style="color: rgba(255,255,255,0.7) !important;">Used SQL and Entity Framework to manage customer, vendor, supplier, order, cylinder, inventory, and delivery records.</p>
+          </div>
+
+          <div class="benefit-card" style="background: linear-gradient(135deg, #1A3A6B, #14305A) !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 12px !important; padding: 1.5rem; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 12px 35px rgba(26,58,107,0.35)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+            <h3 class="benefit-title" style="color: white !important;">Order &amp; Inventory Workflows</h3>
+            <p class="benefit-desc" style="color: rgba(255,255,255,0.7) !important;">Built workflows for cylinder booking, vendor processing, supplier distribution, inventory updates, delivery tracking, and order status management.</p>
+          </div>
+
+          <div class="benefit-card" style="background: linear-gradient(135deg, #1A3A6B, #14305A) !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 12px !important; padding: 1.5rem; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 12px 35px rgba(26,58,107,0.35)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+            <h3 class="benefit-title" style="color: white !important;">Testing &amp; Debugging</h3>
+            <p class="benefit-desc" style="color: rgba(255,255,255,0.7) !important;">Tested application screens, API integrations, role-based workflows, database operations, and order processes to identify and resolve issues.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= CTA =============================== -->
+    <section class="cta-section" style="background: #FFFFFF !important; padding: 4rem 0 6rem 0;">
+      <div class="container">
+        <div class="cta-banner" style="background: linear-gradient(135deg, #1A3A6B, #14305A) !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 20px !important; padding: 3rem; display: flex; flex-direction: column; gap: 2rem; align-items: center; text-align: center;">
+          <div class="cta-text-content">
+            <h2 class="cta-title" style="color: white !important; font-size: 2rem;">Looking for a Mobile or Full-Stack Engineer?</h2>
+            <p class="cta-desc" style="color: rgba(255,255,255,0.7) !important; font-size: 1.1rem;">
+              I build high-performance mobile apps with Flutter and scalable web platforms with Vue 3 and Django. Let's create something exceptional together.
+            </p>
+          </div>
+          <div class="cta-buttons" style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
+            <a href="index.html#contact" class="btn btn-primary" style="background: #FF6B35 !important; color: white !important; border: none !important; padding: 0.75rem 2rem; border-radius: 9999px; font-weight: 600;">Get in Touch</a>
+            <a href="index.html#projects" class="btn btn-outline" style="background: transparent !important; border: 2px solid white !important; color: white !important; padding: 0.75rem 2rem; border-radius: 9999px; font-weight: 600;">← Back to Portfolio</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================= FOOTER ============================ -->
+  <footer class="site-footer" style="background: linear-gradient(135deg, #1A3A6B, #14305A) !important; border-top: 1px solid rgba(255,255,255,0.1) !important; padding: 3rem 0;">
+    <div class="container">
+      <div class="footer-links" style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+        <a href="index.html#home" class="footer-link" style="color: rgba(255,255,255,0.7) !important; transition: all 0.3s ease;" onmouseover="this.style.color='#FF6B35';" onmouseout="this.style.color='rgba(255,255,255,0.7)';">Home</a>
+        <a href="index.html#about" class="footer-link" style="color: rgba(255,255,255,0.7) !important; transition: all 0.3s ease;" onmouseover="this.style.color='#FF6B35';" onmouseout="this.style.color='rgba(255,255,255,0.7)';">About</a>
+        <a href="index.html#skills" class="footer-link" style="color: rgba(255,255,255,0.7) !important; transition: all 0.3s ease;" onmouseover="this.style.color='#FF6B35';" onmouseout="this.style.color='rgba(255,255,255,0.7)';">Skills</a>
+        <a href="index.html#projects" class="footer-link" style="color: rgba(255,255,255,0.7) !important; transition: all 0.3s ease;" onmouseover="this.style.color='#FF6B35';" onmouseout="this.style.color='rgba(255,255,255,0.7)';">Projects</a>
+        <a href="rasant-solutions.html" class="footer-link" style="color: rgba(255,255,255,0.7) !important; transition: all 0.3s ease;" onmouseover="this.style.color='#FF6B35';" onmouseout="this.style.color='rgba(255,255,255,0.7)';">Rasant Solutions Case Study</a>
+        <a href="index.html#contact" class="footer-link" style="color: rgba(255,255,255,0.7) !important; transition: all 0.3s ease;" onmouseover="this.style.color='#FF6B35';" onmouseout="this.style.color='rgba(255,255,255,0.7)';">Contact</a>
+      </div>
+      <p style="color: rgba(255,255,255,0.5) !important; text-align: center;">© 2026 Shujaat Arbab.</p>
+    </div>
+  </footer>
+
+<script>
+  var toggle = document.querySelector('[data-menu-toggle]');
+  var nav = document.querySelector('[data-mobile-nav]');
+  if (toggle && nav) {
+    toggle.addEventListener('click', function () {
+      var open = nav.classList.toggle('is-open');
+      toggle.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', open);
+    });
+    nav.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        nav.classList.remove('is-open');
+        toggle.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+</script>
+</body>
+</html>

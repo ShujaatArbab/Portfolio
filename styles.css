@@ -1,0 +1,1076 @@
+/* ==========================================================================
+   Ali Hassan — Portfolio (plain HTML + Tailwind CDN + CSS + JS)
+   Design tokens, base styles, custom utilities and animations.
+   Tailwind utilities themselves come from the CDN build in index.html.
+   ========================================================================== */
+
+:root {
+  --radius: 0.875rem;
+  --background: #F8F9FA;
+  --foreground: #1A1A2E;
+  --surface: #FFFFFF;
+  --surface-2: #FFFFFF;
+  --primary: #FF6B35;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F1F3F5;
+  --muted-foreground: #4A4A5A;
+  --accent: #FF8C5A;
+  --destructive: #DC2626;
+  --warning: #F59E0B;
+  --border: #E2E8F0;
+
+  --gradient-accent: linear-gradient(100deg, #FF6B35, #FF8C5A);
+  --gradient-surface: linear-gradient(160deg, #FFFFFF, #F8F9FA);
+  --shadow-glow: 0 18px 60px -22px rgba(255, 107, 53, 0.45);
+  --shadow-card: 0 24px 60px -34px rgba(0, 0, 0, 0.15);
+
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* ------------------------------- base ----------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+}
+
+body {
+  margin: 0;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* --------------------------- custom components -------------------------- */
+
+.text-gradient {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.bg-gradient-accent {
+  background: var(--gradient-accent);
+}
+
+.surface-card {
+  background: var(--gradient-surface);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) + 8px);
+  box-shadow: var(--shadow-card);
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.surface-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-glow);
+}
+
+.grid-lines {
+  display: none;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.icon-tile {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border-radius: calc(var(--radius) - 2px);
+  background: var(--secondary);
+  color: var(--primary);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.surface-card:hover .icon-tile {
+  transform: rotate(-8deg) scale(1.08);
+}
+
+/* --------------------------- about visual -------------------------- */
+.about-visual {
+  position: relative;
+  align-self: stretch;
+  height: 100%;
+  min-height: 480px;
+  border-radius: calc(var(--radius) + 8px);
+  overflow: hidden;
+  background: radial-gradient(
+    ellipse at 50% 30%,
+    rgba(255, 107, 53, 0.08),
+    transparent 60%
+  );
+}
+
+#about-particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+@media (max-width: 1023px) {
+  .about-visual {
+    min-height: 420px;
+  }
+}
+
+.chip {
+  display: inline-block;
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  background: var(--surface);
+  padding: 0.25rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--muted-foreground);
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.surface-card:hover .chip {
+  border-color: var(--primary);
+  color: var(--foreground);
+}
+
+.surface-card:hover ul.flex-wrap .chip,
+.surface-card:hover ul.mt-5.flex-wrap .chip,
+.surface-card:hover ul.mt-6.flex-wrap .chip {
+  animation: chip-pop 0.4s ease both;
+}
+
+.surface-card ul.flex-wrap .chip:nth-child(1) { animation-delay: 0.02s; }
+.surface-card ul.flex-wrap .chip:nth-child(2) { animation-delay: 0.06s; }
+.surface-card ul.flex-wrap .chip:nth-child(3) { animation-delay: 0.1s; }
+.surface-card ul.flex-wrap .chip:nth-child(4) { animation-delay: 0.14s; }
+.surface-card ul.flex-wrap .chip:nth-child(5) { animation-delay: 0.18s; }
+.surface-card ul.flex-wrap .chip:nth-child(6) { animation-delay: 0.22s; }
+
+@keyframes chip-pop {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  40% {
+    transform: translateY(-3px) scale(1.05);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  border-radius: 9999px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: var(--gradient-accent);
+  color: var(--primary-foreground);
+  border: 1px solid transparent;
+  box-shadow: var(--shadow-glow);
+}
+
+.btn-outline {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--foreground);
+}
+
+.btn-outline:hover {
+  background: var(--secondary);
+  border-color: var(--primary);
+}
+
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+}
+
+/* nav */
+.site-header {
+  position: fixed;
+  z-index: 200;
+  isolation: isolate;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+  border-bottom: 1px solid transparent;
+}
+
+.site-header.is-scrolled {
+  border-bottom-color: var(--border);
+  background-color: rgba(248, 249, 250, 0.92);
+  backdrop-filter: blur(18px);
+}
+
+.nav-link {
+  position: relative;
+  border-radius: 9999px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  transition: color 0.2s ease;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.28rem;
+  height: 2px;
+  border-radius: 9999px;
+  background: var(--gradient-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.nav-link:hover {
+  color: var(--foreground);
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+.nav-link.is-active {
+  color: var(--foreground);
+  background: var(--secondary);
+}
+
+.nav-link.is-active::after {
+  transform: scaleX(1);
+}
+
+/* nav dropdown */
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.nav-dropdown-chevron {
+  width: 0.75rem;
+  height: 0.75rem;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-dropdown:hover .nav-dropdown-chevron,
+.nav-dropdown:focus-within .nav-dropdown-chevron {
+  transform: rotate(180deg);
+}
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  min-width: 14.5rem;
+  background: var(--surface);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.4rem;
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0.22s;
+  z-index: 9999;
+}
+
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown:focus-within .nav-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.nav-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: calc(var(--radius) - 4px);
+  color: var(--muted-foreground);
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.nav-dropdown-item:hover {
+  background-color: var(--secondary);
+  color: var(--foreground);
+  transform: translateX(2px);
+}
+
+.nav-dropdown-item:hover .nav-dropdown-title {
+  color: var(--primary);
+}
+
+/* progress bars */
+.meter {
+  height: 0.375rem;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 9999px;
+  background: var(--secondary);
+}
+
+.meter > span {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: 9999px;
+  background: var(--gradient-accent);
+  transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* effects - REMOVED all dark animations */
+.marquee-mask {
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+.marquee-track {
+  animation: marquee 32s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* gradient text shimmer */
+.text-gradient-shimmer {
+  background: linear-gradient(
+    100deg,
+    #FF6B35 0%,
+    #FF8C5A 35%,
+    #FFB088 50%,
+    #FF8C5A 65%,
+    #FF6B35 100%
+  );
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer-sweep 6s ease-in-out infinite;
+}
+
+@keyframes shimmer-sweep {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* typewriter */
+[data-typewriter] {
+  display: inline-block;
+  overflow: hidden;
+  white-space: normal;
+  border-right: 2px solid var(--primary);
+  animation: caret-blink 0.8s step-end infinite;
+}
+
+[data-typewriter].is-done {
+  border-right-color: transparent;
+  animation: none;
+}
+
+@keyframes caret-blink {
+  0%,
+  100% {
+    border-color: var(--primary);
+  }
+  50% {
+    border-color: transparent;
+  }
+}
+
+/* hamburger */
+.hamburger {
+  position: relative;
+  display: inline-block;
+  width: 1rem;
+  height: 0.7rem;
+}
+
+.hamburger span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  border-radius: 9999px;
+  background: currentColor;
+  transition:
+    transform 0.3s cubic-bezier(0.65, 0, 0.35, 1),
+    opacity 0.2s ease,
+    top 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.hamburger span:nth-child(1) {
+  top: 0;
+}
+
+.hamburger span:nth-child(2) {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hamburger span:nth-child(3) {
+  top: 100%;
+  transform: translateY(-100%);
+}
+
+.hamburger.is-open span:nth-child(1) {
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.hamburger.is-open span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.is-open span:nth-child(3) {
+  top: 50%;
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+/* tilt card */
+.tilt-card {
+  --rx: 0deg;
+  --ry: 0deg;
+  transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform 0.15s ease-out;
+  will-change: transform;
+}
+
+.tilt-card:hover {
+  transition: none;
+}
+
+/* REMOVED: fluid-ink hero background, cinematic 3D, glow orbs, depth fog */
+
+/* Skills - Simplified */
+#skills .skills-3d-scene-grid {
+  perspective: 1600px;
+  transform-style: preserve-3d;
+}
+
+.skill-card-scene {
+  position: relative;
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
+
+.skill-card-3d {
+  position: relative;
+  z-index: 1;
+  transform-style: preserve-3d;
+  overflow: visible;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) + 8px);
+  background: var(--gradient-surface);
+  outline: none;
+}
+
+.skill-card-3d:focus-visible {
+  border-color: var(--primary);
+}
+
+/* Simplified card layers */
+.skill-card-3d .card-layer {
+  position: relative;
+  transform-style: preserve-3d;
+  z-index: 4;
+}
+
+.skill-card-3d .card-header-layer {
+  transform: translateZ(20px);
+}
+
+.skill-card-3d .card-header-layer .icon-tile {
+  transform: translateZ(10px);
+}
+
+.skill-card-3d .card-meter-layer {
+  transform: translateZ(16px);
+}
+
+.skill-card-3d .card-badges-layer {
+  transform: translateZ(24px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skill-card-3d,
+  .marquee-track,
+  .text-gradient-shimmer {
+    animation: none !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  [data-typewriter] {
+    animation: none;
+    border-right-color: transparent;
+  }
+}
+
+/* ================================================================ */
+/* OVERRIDES - Clean light background */
+/* ================================================================ */
+
+/* Background - Clean white/cream */
+html, body {
+    background: #F8F9FA !important;
+    min-height: 100vh;
+}
+
+/* Remove all dark elements */
+.glow-orb,
+.cinematic-depth-fog,
+.grid-lines,
+.hero-fluid-scrim,
+#global-3d-canvas,
+#hero-fluid-canvas,
+.floating-geo,
+.skill-card-shadow,
+.card-specular-light,
+.card-glass-sheen,
+.card-border-glow,
+.meter-energy-pulse {
+    display: none !important;
+}
+
+/* Hero section transparent */
+#home,
+.hero-section,
+section#home {
+    background: transparent !important;
+}
+
+/* Section backgrounds - White */
+section:not(#home):not(.hero) {
+    background: #FFFFFF !important;
+}
+
+/* Text color - Navy */
+h1, h2, h3, h4, h5, h6, p, span, a, li, label {
+    color: #1A1A2E !important;
+}
+
+/* Button colors - Orange */
+button,
+.btn,
+.btn-primary,
+[role="button"],
+input[type="submit"] {
+    background-color: #FF6B35 !important;
+    color: #FFFFFF !important;
+}
+
+button:hover,
+.btn:hover,
+.btn-primary:hover,
+[role="button"]:hover,
+input[type="submit"]:hover {
+    background-color: #E85D2C !important;
+    color: #FFFFFF !important;
+}
+
+.btn-outline {
+    background: transparent !important;
+    border-color: #FF6B35 !important;
+    color: #1A1A2E !important;
+}
+
+.btn-outline:hover {
+    background: #FF6B35 !important;
+    color: #FFFFFF !important;
+}
+
+/* White cards */
+.surface-card,
+.card,
+.skill-card-3d {
+    background: #FFFFFF !important;
+    border: 1px solid #E2E8F0 !important;
+}
+
+.surface-card:hover,
+.card:hover {
+    border-color: #FF6B35 !important;
+}
+
+
+/* ============== ANIMATIONS ============== */
+
+/* Floating Orbs */
+@keyframes floatOrb {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -20px) scale(1.1); }
+    66% { transform: translate(-20px, 30px) scale(0.9); }
+}
+
+/* Floating Particles */
+@keyframes floatParticle {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+    25% { transform: translate(20px, -30px) scale(1.5); opacity: 0.8; }
+    50% { transform: translate(-15px, 20px) scale(1); opacity: 0.5; }
+    75% { transform: translate(10px, -10px) scale(1.3); opacity: 0.7; }
+}
+
+/* Slow Spin */
+@keyframes spinSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Fade In Up */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Fade In Right */
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+/* ============== ALL ANIMATIONS ============== */
+
+/* 1. Floating Orbs */
+@keyframes floatOrb1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(40px, -30px) scale(1.1); }
+    66% { transform: translate(-30px, 40px) scale(0.9); }
+}
+
+@keyframes floatOrb2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(-35px, 25px) scale(1.15); }
+    66% { transform: translate(35px, -25px) scale(0.85); }
+}
+
+@keyframes floatOrb3 {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.2); }
+}
+
+/* 2. Pulsing Rings */
+@keyframes pulseRing {
+    0% { transform: scale(0.8); opacity: 0.8; }
+    100% { transform: scale(1.8); opacity: 0; }
+}
+
+/* 3. Floating Shapes */
+@keyframes floatShape1 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(20px, -15px) rotate(10deg); }
+    50% { transform: translate(-10px, 20px) rotate(-5deg); }
+    75% { transform: translate(15px, -10px) rotate(8deg); }
+}
+
+@keyframes floatShape2 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(-15px, 20px) rotate(-8deg); }
+    50% { transform: translate(20px, -15px) rotate(12deg); }
+    75% { transform: translate(-10px, 10px) rotate(-6deg); }
+}
+
+/* 4. Floating Squares */
+@keyframes floatSquare1 {
+    0%, 100% { transform: translate(0, 0) rotate(45deg); }
+    25% { transform: translate(15px, -20px) rotate(60deg); }
+    50% { transform: translate(-20px, 15px) rotate(30deg); }
+    75% { transform: translate(10px, -10px) rotate(55deg); }
+}
+
+@keyframes floatSquare2 {
+    0%, 100% { transform: translate(0, 0) rotate(45deg); }
+    25% { transform: translate(-15px, 18px) rotate(30deg); }
+    50% { transform: translate(18px, -12px) rotate(60deg); }
+    75% { transform: translate(-10px, 8px) rotate(40deg); }
+}
+
+/* 5. Wave Move */
+@keyframes waveMove {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-30px); }
+}
+
+/* 6. Floating Particles (10 different animations) */
+@keyframes floatParticle1 {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+    25% { transform: translate(25px, -35px) scale(1.5); opacity: 0.8; }
+    50% { transform: translate(-20px, 25px) scale(1); opacity: 0.5; }
+    75% { transform: translate(15px, -15px) scale(1.3); opacity: 0.7; }
+}
+
+@keyframes floatParticle2 {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+    25% { transform: translate(-25px, 30px) scale(1.4); opacity: 0.7; }
+    50% { transform: translate(20px, -20px) scale(0.8); opacity: 0.4; }
+    75% { transform: translate(-15px, 18px) scale(1.2); opacity: 0.6; }
+}
+
+@keyframes floatParticle3 {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+    25% { transform: translate(18px, -25px) scale(1.6); opacity: 0.9; }
+    50% { transform: translate(-15px, 20px) scale(1); opacity: 0.5; }
+    75% { transform: translate(12px, -12px) scale(1.4); opacity: 0.8; }
+}
+
+@keyframes floatParticle4 {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+    25% { transform: translate(-20px, 25px) scale(1.3); opacity: 0.6; }
+    50% { transform: translate(25px, -18px) scale(0.9); opacity: 0.4; }
+    75% { transform: translate(-18px, 15px) scale(1.1); opacity: 0.7; }
+}
+
+@keyframes floatParticle5 {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+    25% { transform: translate(30px, -20px) scale(1.5); opacity: 0.8; }
+    50% { transform: translate(-10px, 30px) scale(1); opacity: 0.5; }
+    75% { transform: translate(20px, -15px) scale(1.3); opacity: 0.7; }
+}
+
+@keyframes floatParticle6 {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+    25% { transform: translate(-22px, 28px) scale(1.4); opacity: 0.7; }
+    50% { transform: translate(22px, -22px) scale(0.8); opacity: 0.4; }
+    75% { transform: translate(-12px, 16px) scale(1.2); opacity: 0.6; }
+}
+
+@keyframes floatParticle7 {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+    25% { transform: translate(15px, -30px) scale(1.8); opacity: 0.9; }
+    50% { transform: translate(-18px, 15px) scale(1); opacity: 0.5; }
+    75% { transform: translate(10px, -18px) scale(1.5); opacity: 0.8; }
+}
+
+@keyframes floatParticle8 {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+    25% { transform: translate(-28px, 22px) scale(1.3); opacity: 0.6; }
+    50% { transform: translate(18px, -28px) scale(0.9); opacity: 0.4; }
+    75% { transform: translate(-15px, 12px) scale(1.1); opacity: 0.7; }
+}
+
+@keyframes floatParticle9 {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+    25% { transform: translate(20px, -15px) scale(1.5); opacity: 0.8; }
+    50% { transform: translate(-25px, 20px) scale(1); opacity: 0.5; }
+    75% { transform: translate(15px, -10px) scale(1.3); opacity: 0.7; }
+}
+
+@keyframes floatParticle10 {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+    25% { transform: translate(-15px, 20px) scale(1.4); opacity: 0.7; }
+    50% { transform: translate(20px, -15px) scale(0.8); opacity: 0.4; }
+    75% { transform: translate(-10px, 18px) scale(1.2); opacity: 0.6; }
+}
+
+/* 7. Spin Slow */
+@keyframes spinSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* 8. Fade In Up */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 9. Fade In Right */
+@keyframes fadeInRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+/* Additional animations */
+@keyframes moveLine4 {
+    0% { transform: translateX(-100px); opacity: 0; }
+    50% { transform: translateX(100px); opacity: 1; }
+    100% { transform: translateX(300px); opacity: 0; }
+}
+
+@keyframes diagonalFloat3 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(12px, -15px) rotate(8deg); }
+    50% { transform: translate(-8px, 12px) rotate(-6deg); }
+    75% { transform: translate(6px, -8px) rotate(4deg); }
+}
+
+@keyframes diagonalFloat4 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(-12px, 15px) rotate(-8deg); }
+    50% { transform: translate(10px, -10px) rotate(6deg); }
+    75% { transform: translate(-6px, 6px) rotate(-4deg); }
+}
+
+/* More particle animations */
+@keyframes floatParticle11 {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+    25% { transform: translate(15px, -25px) scale(1.6); opacity: 0.9; }
+    50% { transform: translate(-20px, 15px) scale(1); opacity: 0.5; }
+    75% { transform: translate(10px, -15px) scale(1.4); opacity: 0.8; }
+}
+
+@keyframes floatParticle12 {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.25; }
+    25% { transform: translate(-20px, 30px) scale(1.5); opacity: 0.7; }
+    50% { transform: translate(25px, -20px) scale(0.8); opacity: 0.4; }
+    75% { transform: translate(-15px, 20px) scale(1.3); opacity: 0.6; }
+}
+/* ============== ABOUT SECTION ANIMATIONS ============== */
+
+/* 1. Floating Orbs */
+@keyframes aboutOrb1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(40px, -35px) scale(1.1); }
+    66% { transform: translate(-35px, 40px) scale(0.9); }
+}
+
+@keyframes aboutOrb2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(-45px, 30px) scale(1.15); }
+    66% { transform: translate(45px, -30px) scale(0.85); }
+}
+
+@keyframes aboutOrb3 {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.2); }
+}
+
+/* 2. Pulsing Rings */
+@keyframes aboutPulse1 {
+    0% { transform: scale(0.7); opacity: 0.8; }
+    100% { transform: scale(2); opacity: 0; }
+}
+
+@keyframes aboutPulse2 {
+    0% { transform: scale(0.7); opacity: 0.8; }
+    100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* 3. Floating Particles */
+@keyframes aboutParticle1 {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+    25% { transform: translate(30px, -40px) scale(1.5); opacity: 0.8; }
+    50% { transform: translate(-25px, 30px) scale(1); opacity: 0.5; }
+    75% { transform: translate(20px, -25px) scale(1.3); opacity: 0.7; }
+}
+
+@keyframes aboutParticle2 {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.25; }
+    25% { transform: translate(-35px, 30px) scale(1.4); opacity: 0.7; }
+    50% { transform: translate(30px, -35px) scale(0.8); opacity: 0.4; }
+    75% { transform: translate(-25px, 25px) scale(1.2); opacity: 0.6; }
+}
+
+@keyframes aboutParticle3 {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.35; }
+    25% { transform: translate(25px, -30px) scale(1.6); opacity: 0.9; }
+    50% { transform: translate(-20px, 25px) scale(1); opacity: 0.5; }
+    75% { transform: translate(15px, -20px) scale(1.4); opacity: 0.8; }
+}
+
+@keyframes aboutParticle4 {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.25; }
+    25% { transform: translate(-30px, 35px) scale(1.3); opacity: 0.6; }
+    50% { transform: translate(35px, -25px) scale(0.9); opacity: 0.4; }
+    75% { transform: translate(-25px, 30px) scale(1.1); opacity: 0.7; }
+}
+
+@keyframes aboutParticle5 {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+    25% { transform: translate(20px, -30px) scale(1.5); opacity: 0.8; }
+    50% { transform: translate(-30px, 20px) scale(1); opacity: 0.5; }
+    75% { transform: translate(15px, -20px) scale(1.3); opacity: 0.7; }
+}
+
+@keyframes aboutParticle6 {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.2; }
+    25% { transform: translate(-25px, 30px) scale(1.4); opacity: 0.7; }
+    50% { transform: translate(30px, -25px) scale(0.8); opacity: 0.4; }
+    75% { transform: translate(-20px, 25px) scale(1.2); opacity: 0.6; }
+}
+
+@keyframes aboutParticle7 {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+    25% { transform: translate(15px, -20px) scale(1.8); opacity: 0.9; }
+    50% { transform: translate(-20px, 15px) scale(1); opacity: 0.5; }
+    75% { transform: translate(12px, -15px) scale(1.5); opacity: 0.8; }
+}
+
+@keyframes aboutParticle8 {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.25; }
+    25% { transform: translate(-20px, 25px) scale(1.3); opacity: 0.6; }
+    50% { transform: translate(25px, -20px) scale(0.9); opacity: 0.4; }
+    75% { transform: translate(-15px, 20px) scale(1.1); opacity: 0.7; }
+}
+
+@keyframes aboutParticle9 {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+    25% { transform: translate(25px, -30px) scale(1.5); opacity: 0.8; }
+    50% { transform: translate(-25px, 25px) scale(1); opacity: 0.5; }
+    75% { transform: translate(15px, -20px) scale(1.3); opacity: 0.7; }
+}
+
+@keyframes aboutParticle10 {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+    25% { transform: translate(-25px, 25px) scale(1.4); opacity: 0.7; }
+    50% { transform: translate(25px, -25px) scale(0.8); opacity: 0.4; }
+    75% { transform: translate(-18px, 20px) scale(1.2); opacity: 0.6; }
+}
+
+/* 4. Moving Lines */
+@keyframes aboutLine1 {
+    0% { transform: translateX(-80px); opacity: 0; }
+    50% { transform: translateX(80px); opacity: 1; }
+    100% { transform: translateX(240px); opacity: 0; }
+}
+
+@keyframes aboutLine2 {
+    0% { transform: translateX(80px); opacity: 0; }
+    50% { transform: translateX(-80px); opacity: 1; }
+    100% { transform: translateX(-240px); opacity: 0; }
+}
+
+@keyframes aboutLine3 {
+    0% { transform: translateX(-60px); opacity: 0; }
+    50% { transform: translateX(60px); opacity: 1; }
+    100% { transform: translateX(180px); opacity: 0; }
+}
+
+/* 5. Diagonal Shapes */
+@keyframes aboutDiagonal1 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(15px, -20px) rotate(10deg); }
+    50% { transform: translate(-12px, 15px) rotate(-8deg); }
+    75% { transform: translate(10px, -12px) rotate(6deg); }
+}
+
+@keyframes aboutDiagonal2 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(-15px, 18px) rotate(-8deg); }
+    50% { transform: translate(12px, -12px) rotate(6deg); }
+    75% { transform: translate(-8px, 10px) rotate(-4deg); }
+}
+
+/* 6. Spin */
+@keyframes aboutSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* 7. Wave */
+@keyframes aboutWave {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-30px); }
+}
+
